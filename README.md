@@ -1,1 +1,1 @@
-# Lycée Connecté - Un-official App
+# Lycée Connecté - Unofficial App
