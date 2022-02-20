@@ -6,6 +6,7 @@ Available on Android 6.0 (API 23) and above.
 * Access to Lycée Connecté feeds
 * Offline access
 * Light and dark themes
+* Material 3 theme
 
 ## Download
 Get the app from our [releases pages](https://github.com/JulesPvx/lycee-connecte-app/releases).
