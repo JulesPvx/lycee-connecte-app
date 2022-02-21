@@ -152,6 +152,8 @@ public class DashboardFragment extends Fragment {
                     if (threads.size() > 0) { newsCv.setVisibility(View.VISIBLE); }
                     if (novelties.size() > 0) { newsFeedCv.setVisibility(View.VISIBLE); }
 
+
+
                     displayNameTv.setText(currentUser.getDisplayName());
                     schoolNameTv.setText(currentUser.getStructureNames().get(0));
 
