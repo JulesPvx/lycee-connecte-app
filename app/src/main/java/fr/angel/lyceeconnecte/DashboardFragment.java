@@ -59,6 +59,8 @@ public class DashboardFragment extends Fragment {
         sharedPreferences = requireActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+
+
         oneSessionId = sharedPreferences.getString("oneSessionId", "");
 
         if (getArguments() != null) {
