@@ -25,13 +25,16 @@
                 android:padding="16dp">
 
                 <com.google.android.material.imageview.ShapeableImageView
+                    android:padding="2dp"
                     android:id="@+id/dashboard_user_profile_picture_img"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="77dp"
+                    android:layout_height="77dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_launcher_foreground" />
+                    app:srcCompat="@drawable/ic_launcher_foreground"
+                    app:strokeWidth="2dp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/dashboard_display_name_tv"
