@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class User {
 
-    private String birthDate, externalId, federatedIDP, firstName, lastName, level, login, type, userId, address, email, health, id, mobile, mood, motto, photo, tel;
+    private String birthDate, externalId, federatedIDP, firstName, lastName, level, login, type, address, email, health, id, mobile, mood, motto, photo, tel;
     @SerializedName(value = "displayName", alternate = "username")
     private String displayName;
     private Boolean deletePending, federated, hasApp, hasPw, needRevalidateTerms, forceChangePassword;
@@ -17,7 +17,7 @@ public class User {
 
     public User() { }
 
-    public User(String birthDate, String externalId, String federatedIDP, String firstName, String lastName, String level, String login, String type, String userId, String address, String email, String health, String id, String mobile, String mood, String motto, String photo, String tel, String displayName, Boolean deletePending, Boolean federated, Boolean hasApp, Boolean hasPw, Boolean needRevalidateTerms, Boolean forceChangePassword, HashMap<String, String> children, HashMap<String, String> functions, ArrayList<Integer> childrenIds, ArrayList<String> classNames, ArrayList<String> classes, ArrayList<String> groupsIds, ArrayList<String> structureNames, ArrayList<String> structures) {
+    public User(String birthDate, String externalId, String federatedIDP, String firstName, String lastName, String level, String login, String type, String address, String email, String health, String id, String mobile, String mood, String motto, String photo, String tel, String displayName, Boolean deletePending, Boolean federated, Boolean hasApp, Boolean hasPw, Boolean needRevalidateTerms, Boolean forceChangePassword, HashMap<String, String> children, HashMap<String, String> functions, ArrayList<Integer> childrenIds, ArrayList<String> classNames, ArrayList<String> classes, ArrayList<String> groupsIds, ArrayList<String> structureNames, ArrayList<String> structures) {
         this.birthDate = birthDate;
         this.externalId = externalId;
         this.federatedIDP = federatedIDP;
@@ -26,7 +26,6 @@ public class User {
         this.level = level;
         this.login = login;
         this.type = type;
-        this.userId = userId;
         this.address = address;
         this.email = email;
         this.health = health;
@@ -187,14 +186,6 @@ public class User {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getDisplayName() {
