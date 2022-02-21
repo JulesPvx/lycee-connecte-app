@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     style="@style/Widget.Material3.CardView.Elevated"
     android:layout_margin="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/news_item_parent_cl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
@@ -18,34 +20,69 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/news_item_title_tv"
+            style="@style/TextAppearance.Material3.TitleLarge"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text="Nom Prénom"
+            android:text="Title"
             android:textStyle="bold"
-            style="@style/TextAppearance.Material3.TitleLarge"
-            app:layout_constraintBottom_toTopOf="@+id/news_item_time_ago_tv"
+            app:layout_constraintBottom_toBottomOf="@+id/news_item_icon_img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/news_item_icon_img"
             app:layout_constraintTop_toTopOf="@+id/news_item_icon_img" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/news_item_time_ago_tv"
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/news_item_expandable_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="Établissement"
-            style="@style/TextAppearance.Material3.LabelMedium"
-            app:layout_constraintBottom_toBottomOf="@+id/news_item_icon_img"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:el_duration="200"
+            app:el_expanded="false"
+            app:el_parallax="0.5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/news_item_icon_img"
-            app:layout_constraintTop_toBottomOf="@+id/news_item_title_tv" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/news_item_icon_img" >
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/news_item_content_tv"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lorem_2p"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/news_item_icon_img" />
+
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/news_item_time_ago_tv"
+            style="@style/TextAppearance.Material3.LabelMedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="time ago"
+            app:layout_constraintBottom_toBottomOf="@+id/news_item_show_more_btn"
+            app:layout_constraintEnd_toStartOf="@+id/news_item_show_more_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/news_item_show_more_btn" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/news_item_show_more_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Show more"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/news_item_expandable_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
