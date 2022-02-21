@@ -98,7 +98,7 @@ public class DashboardFragment extends Fragment {
         // Setup news recycler view
         LinearLayoutManager newsLayoutManager = new LinearLayoutManager(requireActivity());
         newsRv.setLayoutManager(newsLayoutManager);
-        newsAdapter = new NewsAdapter(threads);
+        newsAdapter = new NewsAdapter(threads, requireActivity());
         newsRv.setAdapter(newsAdapter);
 
         // Setup novelties recycler view
@@ -138,7 +138,7 @@ public class DashboardFragment extends Fragment {
             new Thread(() -> {
 
                 try {
-                    parseToThreads(Objects.requireNonNull(JsonFromUrl.getJsonArray("https://mon.lyceeconnecte.fr/actualites/infos/last/4", oneSessionId))); } catch (JSONException | IOException e) { e.printStackTrace(); }
+                    parseToThreads(Objects.requireNonNull(JsonFromUrl.getJsonArray("https://mon.lyceeconnecte.fr/actualites/infos", oneSessionId))); } catch (JSONException | IOException e) { e.printStackTrace(); }
                 try {
                     parseToThreadFeed(Objects.requireNonNull(JsonFromUrl.getJsonArray("https://mon.lyceeconnecte.fr/timeline/flashmsg/listuser", oneSessionId))); } catch (JSONException | IOException e) { e.printStackTrace(); }
                 try {
@@ -151,6 +151,8 @@ public class DashboardFragment extends Fragment {
 
                     if (threads.size() > 0) { newsCv.setVisibility(View.VISIBLE); }
                     if (novelties.size() > 0) { newsFeedCv.setVisibility(View.VISIBLE); }
+
+
 
                     displayNameTv.setText(currentUser.getDisplayName());
                     schoolNameTv.setText(currentUser.getStructureNames().get(0));
