@@ -1,5 +1,6 @@
 package fr.angel.lyceeconnecte.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
@@ -53,6 +54,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
         return new NewsHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull NewsHolder holder, int position) {
         final MyThread thread = threadList.get(position);
