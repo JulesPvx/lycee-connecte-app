@@ -44,4 +44,32 @@ public class TimeAgo {
         }
     }
 
+    public static String getTimeAgo(long time) {
+        if (time < 1000000000000L) {
+            time *= 1000;
+        }
+
+        long now = currentDate().getTime();
+        if (time > now || time <= 0) {
+            return "in the future";
+        }
+
+        final long diff = now - time;
+        if (diff < MINUTE_MILLIS) {
+            return "moments ago";
+        } else if (diff < 2 * MINUTE_MILLIS) {
+            return "a minute ago";
+        } else if (diff < 60 * MINUTE_MILLIS) {
+            return diff / MINUTE_MILLIS + " minutes ago";
+        } else if (diff < 2 * HOUR_MILLIS) {
+            return "an hour ago";
+        } else if (diff < 24 * HOUR_MILLIS) {
+            return diff / HOUR_MILLIS + " hours ago";
+        } else if (diff < 48 * HOUR_MILLIS) {
+            return "yesterday";
+        } else {
+            return diff / DAY_MILLIS + " days ago";
+        }
+    }
+
 }

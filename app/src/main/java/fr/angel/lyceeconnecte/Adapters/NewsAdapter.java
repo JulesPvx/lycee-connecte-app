@@ -1,5 +1,6 @@
 package fr.angel.lyceeconnecte.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
@@ -53,6 +54,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
         return new NewsHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull NewsHolder holder, int position) {
         final MyThread thread = threadList.get(position);
@@ -92,9 +94,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
         holder.expandBtn.setOnClickListener(v -> {
             holder.expandableLayout.toggle();
             if (holder.expandableLayout.isExpanded()) {
-                holder.expandBtn.setText("Hide");
+                holder.expandBtn.setText(R.string.hide);
+                holder.timeTv.setText(finalTime + ", " + thread.getUsername());
             } else {
-                holder.expandBtn.setText("Show more");
+                holder.expandBtn.setText(R.string.show_more);
+                holder.timeTv.setText(finalTime);
             }
         });
 

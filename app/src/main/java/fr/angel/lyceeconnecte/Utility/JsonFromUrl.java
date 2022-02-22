@@ -11,8 +11,6 @@ import java.util.Scanner;
 
 public class JsonFromUrl {
 
-    private static final String TAG = "JsonFromUrl";
-
     public static JSONObject getJsonObject(String strUrl, String oneSessionId) throws IOException {
         URL url = new URL(strUrl);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();

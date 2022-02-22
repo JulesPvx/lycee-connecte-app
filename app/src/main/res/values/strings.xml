@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Lycée Connecté</string>
     <string name="lorem_2p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla elementum massa eu arcu congue pellentesque placerat id turpis. Sed imperdiet mi vitae ex tristique mattis. Phasellus eu volutpat erat. Aliquam finibus nibh in dignissim luctus. Vivamus turpis lacus, blandit sagittis aliquam in, placerat sit amet nisl. Praesent a eleifend nibh, nec rhoncus odio. Donec porta lorem nibh, nec mattis purus eleifend vel. Mauris ac facilisis neque. Phasellus sed commodo turpis. Suspendisse lobortis velit vel odio blandit, sit amet eleifend nisl mattis. Pellentesque et nibh justo. Nunc lobortis ligula sed turpis sodales faucibus. Suspendisse potenti.</string>
+    <string name="title">Title</string>
+    <string name="placeholder_time_ago">time ago</string>
+    <string name="show_more">Plus</string>
+    <string name="hide">Cacher</string>
+    <string name="type">Type</string>
+    <string name="placeholder_name">Nom Prénom</string>
+    <string name="placeholder_school_name">Établissement</string>
+    <string name="placeholder_news">Actualités</string>
+    <string name="placeholder_news_feed">Fil de Nouveautés</string>
 </resources>

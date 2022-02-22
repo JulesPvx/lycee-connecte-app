@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     style="@style/Widget.Material3.CardView.Elevated"
@@ -30,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text="Title"
+            android:text="@string/title"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/news_item_icon_img"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:text="time ago"
+            android:text="@string/placeholder_time_ago"
             app:layout_constraintBottom_toBottomOf="@+id/news_item_show_more_btn"
             app:layout_constraintEnd_toStartOf="@+id/news_item_show_more_btn"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +79,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Show more"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:text="@string/show_more"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/news_item_expandable_layout" />
 

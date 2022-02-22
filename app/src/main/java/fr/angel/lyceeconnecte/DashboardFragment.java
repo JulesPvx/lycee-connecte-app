@@ -39,6 +39,7 @@ import fr.angel.lyceeconnecte.Models.Novelty;
 import fr.angel.lyceeconnecte.Models.User;
 import fr.angel.lyceeconnecte.Utility.JsonFromUrl;
 import fr.angel.lyceeconnecte.Utility.ParseStringToJson;
+import fr.angel.lyceeconnecte.Utility.ProfilePicture;
 
 public class DashboardFragment extends Fragment {
 
@@ -149,46 +150,14 @@ public class DashboardFragment extends Fragment {
                     noveltyAdapter.notifyDataSetChanged();
                     newsAdapter.notifyDataSetChanged();
 
-                    if (threads.size() > 0) { newsCv.setVisibility(View.VISIBLE); }
-                    if (novelties.size() > 0) { newsFeedCv.setVisibility(View.VISIBLE); }
-
-
+                    if (threads.size() > 0) { newsCv.setVisibility(View.VISIBLE); } else { newsCv.setVisibility(View.GONE); }
+                    if (novelties.size() > 0) { newsFeedCv.setVisibility(View.VISIBLE); } else { newsFeedCv.setVisibility(View.GONE); }
 
                     displayNameTv.setText(currentUser.getDisplayName());
                     schoolNameTv.setText(currentUser.getStructureNames().get(0));
 
                     // Display user profile picture
-                    Glide.with(this)
-                            .asBitmap()
-                            .load("https://mon.lyceeconnecte.fr/userbook/avatar/" + currentUser.getId())
-                            .into(new CustomTarget<Bitmap>() {
-                                @Override
-                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-
-                                    Bitmap image = resource;
-
-                                    Glide.with(requireActivity())
-                                            .asBitmap()
-                                            .load("https://mon.lyceeconnecte.fr/userbook/avatar/517cae4f-0c43-4ae4-b83f-6332536bb749")
-                                            .into(new CustomTarget<Bitmap>() {
-                                                @Override
-                                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                                    if (!image.sameAs(resource)) {
-                                                        profilePictureImg.setImageBitmap(image);
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                                                }
-                                            });
-                                }
-
-                                @Override
-                                public void onLoadCleared(@Nullable Drawable placeholder) {
-                                }
-                            });
+                    ProfilePicture.getUserProfilePicture(oneSessionId, requireActivity(), profilePictureImg);
                 });
             }).start();
         }
