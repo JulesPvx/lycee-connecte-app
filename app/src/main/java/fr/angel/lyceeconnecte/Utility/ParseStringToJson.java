@@ -12,9 +12,7 @@ public class ParseStringToJson {
 
     public static JSONObject parseStringToJsonObject(String str) {
         try {
-            JSONObject jsonObject = new JSONObject(str);
-            Log.d(TAG, jsonObject.toString());
-            return jsonObject;
+            return new JSONObject(str);
         }catch (JSONException err){
             Log.e(TAG, err + ": " + str);
         }
@@ -24,9 +22,7 @@ public class ParseStringToJson {
 
     public static JSONArray parseStringToJsonArray(String str) {
         try {
-            JSONArray jsonArray = new JSONArray(str);
-            Log.d(TAG, jsonArray.toString());
-            return jsonArray;
+            return new JSONArray(str);
         }catch (JSONException err){
             Log.e(TAG, err + ": " + str);
         }
