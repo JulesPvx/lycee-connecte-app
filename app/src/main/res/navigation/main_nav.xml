@@ -19,9 +19,9 @@
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
-        android:name="fr.angel.lyceeconnecte.NewsFragment"
+        android:name="fr.angel.lyceeconnecte.NotificationFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_news" >
+        tools:layout="@layout/fragment_notification" >
         <action
             android:id="@+id/action_newsFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
