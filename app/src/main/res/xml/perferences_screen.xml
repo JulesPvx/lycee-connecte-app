@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Zimbra">
+
+        <SwitchPreference
+            android:key="zimbra_expert_mode"
+            android:title="Mode expert"
+            android:enabled="false" />
+
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>
