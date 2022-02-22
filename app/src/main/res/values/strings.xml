@@ -4,5 +4,5 @@
     <string name="title">Title</string>
     <string name="placeholder_time_ago">time ago</string>
     <string name="show_more">Plus</string>
-    <string name="hide">Hide</string>
+    <string name="hide">Cacher</string>
 </resources>
