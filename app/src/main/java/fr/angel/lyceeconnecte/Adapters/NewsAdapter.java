@@ -91,7 +91,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
 
         holder.expandBtn.setOnClickListener(v -> {
             holder.expandableLayout.toggle();
-            if (holder.expandableLayout.isExpanded()) { holder.expandBtn.setText(R.string.hide); } else { holder.expandBtn.setText(R.string.show_more); }
+            if (holder.expandableLayout.isExpanded()) {
+                holder.expandBtn.setText(R.string.hide);
+                holder.timeTv.setText(finalTime + ", " + thread.getUsername());
+            } else {
+                holder.expandBtn.setText(R.string.show_more);
+                holder.timeTv.setText(finalTime);
+            }
         });
 
         // TODO: More details activity
