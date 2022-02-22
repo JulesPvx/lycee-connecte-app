@@ -10,4 +10,7 @@
     <string name="placeholder_school_name">Établissement</string>
     <string name="placeholder_news">Actualités</string>
     <string name="placeholder_news_feed">Fil de Nouveautés</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="notifications">Notifications</string>
+    <string name="settings">Paramètres</string>
 </resources>
