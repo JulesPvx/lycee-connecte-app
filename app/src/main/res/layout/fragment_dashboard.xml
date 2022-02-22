@@ -25,16 +25,11 @@
                 android:padding="16dp">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:padding="2dp"
                     android:id="@+id/dashboard_user_profile_picture_img"
-                    android:layout_width="77dp"
-                    android:layout_height="77dp"
+                    style="@style/AppTheme.ShapeableImageView.Rounded.Border"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_launcher_foreground"
-                    app:strokeWidth="2dp"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/dashboard_display_name_tv"
@@ -43,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="Nom Prénom"
+                    android:text="@string/placeholder_name"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/news_item_time_ago_tv"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="Établissement"
+                    android:text="@string/placeholder_school_name"
                     app:layout_constraintBottom_toBottomOf="@+id/dashboard_user_profile_picture_img"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/dashboard_user_profile_picture_img"
@@ -85,7 +80,7 @@
                     style="@style/TextAppearance.Material3.TitleLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Actualités"
+                    android:text="@string/placeholder_news"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -118,7 +113,7 @@
                     style="@style/TextAppearance.Material3.TitleLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fil de Nouveautés"
+                    android:text="@string/placeholder_news_feed"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
