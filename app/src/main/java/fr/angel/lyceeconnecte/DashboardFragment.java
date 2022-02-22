@@ -3,8 +3,6 @@ package fr.angel.lyceeconnecte;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
@@ -37,7 +32,7 @@ import fr.angel.lyceeconnecte.Adapters.NoveltyAdapter;
 import fr.angel.lyceeconnecte.Models.MyThread;
 import fr.angel.lyceeconnecte.Models.Novelty;
 import fr.angel.lyceeconnecte.Models.User;
-import fr.angel.lyceeconnecte.Utility.JsonFromUrl;
+import fr.angel.lyceeconnecte.Utility.JsonUtility;
 import fr.angel.lyceeconnecte.Utility.ParseStringToJson;
 import fr.angel.lyceeconnecte.Utility.ProfilePicture;
 
@@ -139,11 +134,11 @@ public class DashboardFragment extends Fragment {
             new Thread(() -> {
 
                 try {
-                    parseToThreads(Objects.requireNonNull(JsonFromUrl.getJsonArray("https://mon.lyceeconnecte.fr/actualites/infos", oneSessionId))); } catch (JSONException | IOException e) { e.printStackTrace(); }
+                    parseToThreads(Objects.requireNonNull(JsonUtility.getJsonArray("https://mon.lyceeconnecte.fr/actualites/infos", oneSessionId))); } catch (JSONException | IOException e) { e.printStackTrace(); }
                 try {
-                    parseToThreadFeed(Objects.requireNonNull(JsonFromUrl.getJsonArray("https://mon.lyceeconnecte.fr/timeline/flashmsg/listuser", oneSessionId))); } catch (JSONException | IOException e) { e.printStackTrace(); }
+                    parseToThreadFeed(Objects.requireNonNull(JsonUtility.getJsonArray("https://mon.lyceeconnecte.fr/timeline/flashmsg/listuser", oneSessionId))); } catch (JSONException | IOException e) { e.printStackTrace(); }
                 try {
-                    parseToUser(Objects.requireNonNull(JsonFromUrl.getJsonObject("https://mon.lyceeconnecte.fr/auth/oauth2/userinfo", oneSessionId))); } catch (JSONException | IOException e) { e.printStackTrace(); }
+                    parseToUser(Objects.requireNonNull(JsonUtility.getJsonObject("https://mon.lyceeconnecte.fr/auth/oauth2/userinfo", oneSessionId))); } catch (JSONException | IOException e) { e.printStackTrace(); }
 
                 requireActivity().runOnUiThread(() -> {
 
