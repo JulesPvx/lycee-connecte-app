@@ -91,11 +91,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
 
         holder.expandBtn.setOnClickListener(v -> {
             holder.expandableLayout.toggle();
-            if (holder.expandableLayout.isExpanded()) {
-                holder.expandBtn.setText("Hide");
-            } else {
-                holder.expandBtn.setText("Show more");
-            }
+            if (holder.expandableLayout.isExpanded()) { holder.expandBtn.setText(R.string.hide); } else { holder.expandBtn.setText(R.string.show_more); }
         });
 
         // TODO: More details activity
