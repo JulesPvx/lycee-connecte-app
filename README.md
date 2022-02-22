@@ -1,8 +1,10 @@
-# Lycée Connecté
+# <img src="https://user-images.githubusercontent.com/87655026/155192562-e7a89e10-99f6-483e-a3be-793c6b15ad86.png" width="40"> Lycée Connecté
 Lycée Connecté provide an unofficial android app for the Lycée Connecté web service.
 Available on Android 6.0 (API 23) and above.
 
-## Features:
+#### Please share your ideas with us !
+
+## ❇️ Features:
 * Access to:
   * News feed
   * Novelties feed
@@ -11,10 +13,10 @@ Available on Android 6.0 (API 23) and above.
 * Light and dark themes
 * Material 3 theme
 
-## Download
+## ⬇️ Download
 Get the app from our [releases pages](https://github.com/JulesPvx/lycee-connecte-app/releases).
 
-## Licence
+## 📜 Licence
 ```
 MIT License
 
