@@ -3,7 +3,10 @@ Lycée Connecté provide an unofficial android app for the Lycée Connecté web 
 Available on Android 6.0 (API 23) and above.
 
 ## Features:
-* Access to Lycée Connecté feeds
+* Access to:
+  * News feed
+  * Novelties feed
+  * Notifications
 * Offline access
 * Light and dark themes
 * Material 3 theme
