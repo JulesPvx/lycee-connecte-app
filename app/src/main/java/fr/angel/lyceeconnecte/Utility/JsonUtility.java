@@ -73,5 +73,7 @@ public class JsonUtility {
         InputStream responseStream = httpConn.getResponseCode() / 100 == 2
                 ? httpConn.getInputStream()
                 : httpConn.getErrorStream();
+
+        responseStream.close();
     }
 }
