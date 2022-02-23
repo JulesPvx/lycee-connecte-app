@@ -14,6 +14,8 @@ import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.button.MaterialButton;
+
 import org.apache.commons.lang3.StringUtils;
 
 public class LoginActivity extends AppCompatActivity {
@@ -32,6 +34,15 @@ public class LoginActivity extends AppCompatActivity {
 
         // Bind views
         WebView webView = findViewById(R.id.login_web_view);
+        MaterialButton startWithoutLoginBtn = findViewById(R.id.start_without_login_btn);
+
+        startWithoutLoginBtn.setOnClickListener(v -> {
+            // Start MainActivity
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            i.putExtra("status", MainActivity.STATUS_NO_INTERNET);
+            startActivity(i);
+            finish();
+        });
 
         // Setup web view
         webView.getSettings().setJavaScriptEnabled(true);
