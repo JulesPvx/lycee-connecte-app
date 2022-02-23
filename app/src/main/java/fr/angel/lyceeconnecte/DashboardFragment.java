@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,7 +126,7 @@ public class DashboardFragment extends Fragment {
             try {
                 parseToUser(Objects.requireNonNull(ParseStringToJson.parseStringToJsonObject(user))); } catch (JSONException e) { e.printStackTrace(); }
             displayNameTv.setText(currentUser.getDisplayName());
-            schoolNameTv.setText(currentUser.getStructureNames().get(0));
+            schoolNameTv.setText(currentUser.getStructureNodes().get(0).getName());
         }
 
 
@@ -138,7 +139,7 @@ public class DashboardFragment extends Fragment {
                 try {
                     parseToThreadFeed(Objects.requireNonNull(JsonUtility.getJsonArray("https://mon.lyceeconnecte.fr/timeline/flashmsg/listuser", oneSessionId))); } catch (JSONException | IOException e) { e.printStackTrace(); }
                 try {
-                    parseToUser(Objects.requireNonNull(JsonUtility.getJsonObject("https://mon.lyceeconnecte.fr/auth/oauth2/userinfo", oneSessionId))); } catch (JSONException | IOException e) { e.printStackTrace(); }
+                    parseToUser(Objects.requireNonNull(JsonUtility.getJsonObject("https://mon.lyceeconnecte.fr/directory/user/" + Objects.requireNonNull(JsonUtility.getJsonObject("https://mon.lyceeconnecte.fr/auth/oauth2/userinfo", oneSessionId)).getString("userId"), oneSessionId))); } catch (JSONException | IOException e) { e.printStackTrace(); }
 
                 requireActivity().runOnUiThread(() -> {
 
@@ -149,7 +150,7 @@ public class DashboardFragment extends Fragment {
                     if (novelties.size() > 0) { newsFeedCv.setVisibility(View.VISIBLE); } else { newsFeedCv.setVisibility(View.GONE); }
 
                     displayNameTv.setText(currentUser.getDisplayName());
-                    schoolNameTv.setText(currentUser.getStructureNames().get(0));
+                    schoolNameTv.setText(currentUser.getStructureNodes().get(0).getName());
 
                     // Display user profile picture
                     ProfilePicture.getUserProfilePicture(oneSessionId, requireActivity(), profilePictureImg);
