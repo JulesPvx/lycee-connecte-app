@@ -27,7 +27,7 @@ import java.util.Objects;
 
 import fr.angel.lyceeconnecte.Adapters.NotificationAdapter;
 import fr.angel.lyceeconnecte.Models.Notification;
-import fr.angel.lyceeconnecte.Utility.JsonFromUrl;
+import fr.angel.lyceeconnecte.Utility.JsonUtility;
 import fr.angel.lyceeconnecte.Utility.ParseStringToJson;
 
 public class NotificationFragment extends Fragment {
@@ -101,7 +101,7 @@ public class NotificationFragment extends Fragment {
         new Thread(() -> {
 
             try {
-                parseToNotifications(Objects.requireNonNull(JsonFromUrl.getJsonObject("https://mon.lyceeconnecte.fr/timeline/lastNotifications?type=ARCHIVE&type=BLOG&type=CALENDAR&type=COLLABORATIVEWALL&type=COMMUNITY&type=EXERCIZER&type=FORMULAIRE&type=FORUM&type=MESSAGERIE&type=MINDMAP&type=MOODLE&type=NEWS&type=PAGES&type=RACK&type=RBS&type=SCRAPBOOK&type=SHAREBIGFILES&type=SUPPORT&type=TIMELINE&type=TIMELINEGENERATOR&type=USERBOOK&type=USERBOOK_MOOD&type=USERBOOK_MOTTO&type=WIKI&type=WORKSPACE&page=0", oneSessionId))); } catch (JSONException | IOException e) { e.printStackTrace(); }
+                parseToNotifications(Objects.requireNonNull(JsonUtility.getJsonObject("https://mon.lyceeconnecte.fr/timeline/lastNotifications?type=ARCHIVE&type=BLOG&type=CALENDAR&type=COLLABORATIVEWALL&type=COMMUNITY&type=EXERCIZER&type=FORMULAIRE&type=FORUM&type=MESSAGERIE&type=MINDMAP&type=MOODLE&type=NEWS&type=PAGES&type=RACK&type=RBS&type=SCRAPBOOK&type=SHAREBIGFILES&type=SUPPORT&type=TIMELINE&type=TIMELINEGENERATOR&type=USERBOOK&type=USERBOOK_MOOD&type=USERBOOK_MOTTO&type=WIKI&type=WORKSPACE&page=0", oneSessionId))); } catch (JSONException | IOException e) { e.printStackTrace(); }
 
             requireActivity().runOnUiThread(() -> notificationAdapter.notifyDataSetChanged());
         }).start();

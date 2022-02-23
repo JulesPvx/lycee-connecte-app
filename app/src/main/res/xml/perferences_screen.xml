@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Zimbra">
+
+        <SwitchPreference
+            android:key="zimbra_expert_mode"
+            android:title="Mode expert"
+            android:enabled="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Options avancées">
+
+        <EditTextPreference
+            android:key="display_name"
+            android:title="Edit displayName"
+            android:enabled="false"/>
+
+        <EditTextPreference
+            android:key="birth_date"
+            android:title="Edit birthDate"
+            android:enabled="false"/>
+
+        <EditTextPreference
+            android:key="address"
+            android:title="Edit address"
+            android:enabled="false"/>
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>
