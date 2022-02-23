@@ -13,4 +13,6 @@
     <string name="dashboard">Dashboard</string>
     <string name="notifications">Notifications</string>
     <string name="settings">Paramètres</string>
+    <string name="connection">Connection</string>
+    <string name="no_login_connect">Lancer sans se connecter</string>
 </resources>
