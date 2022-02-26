@@ -9,36 +9,20 @@
         android:id="@+id/dashboardFragment"
         android:name="fr.angel.lyceeconnecte.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
-        <action
-            android:id="@+id/action_dashboardFragment_to_newsFragment"
-            app:destination="@id/newsFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_dashboard" />
     <fragment
         android:id="@+id/newsFragment"
         android:name="fr.angel.lyceeconnecte.NotificationFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_notification" >
-        <action
-            android:id="@+id/action_newsFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
-        <action
-            android:id="@+id/action_newsFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_notification" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="fr.angel.lyceeconnecte.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" >
-        <action
-            android:id="@+id/action_settingsFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
-        <action
-            android:id="@+id/action_settingsFragment_to_newsFragment"
-            app:destination="@id/newsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/messagingFragment"
+        android:name="fr.angel.lyceeconnecte.MessagingFragment"
+        android:label="fragment_messaging"
+        tools:layout="@layout/fragment_messaging" />
 </navigation>

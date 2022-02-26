@@ -76,7 +76,7 @@ public class NotificationFragment extends Fragment {
         // Setup notifications recycler view
         LinearLayoutManager notificationsLayoutManager = new LinearLayoutManager(requireActivity());
         notificationRv.setLayoutManager(notificationsLayoutManager);
-        notificationAdapter = new NotificationAdapter(notifications, requireActivity());
+        notificationAdapter = new NotificationAdapter(notifications, requireActivity(), status);
         notificationRv.setAdapter(notificationAdapter);
 
         // Try to put previously retrieved data into views

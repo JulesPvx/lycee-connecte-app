@@ -12,6 +12,8 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.imageview.ShapeableImageView;
 
+import fr.angel.lyceeconnecte.R;
+
 public class ProfilePicture {
 
     public static void getUserProfilePicture(String id, Context context, ShapeableImageView img) {
@@ -33,6 +35,8 @@ public class ProfilePicture {
                                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                         if (!image.sameAs(resource)) {
                                             img.setImageBitmap(image);
+                                        } else {
+                                            img.setImageResource(R.drawable.ic_launcher_foreground);
                                         }
                                     }
 

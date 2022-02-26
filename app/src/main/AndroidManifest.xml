@@ -12,8 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="fr.angel.lyceeconnecte.LoginActivity"
-            android:exported="true" >
+            android:name=".MailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="fr.angel.lyceeconnecte.MainActivity"
+            android:name=".MainActivity"
             android:exported="false" />
     </application>
 

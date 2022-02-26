@@ -141,9 +141,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     displayName.setText(currentUser.getDisplayName());
                     birthDate.setText(currentUser.getBirthDate());
                     address.setText(currentUser.getAddress());
-                    displayName.setEnabled(true);
-                    birthDate.setEnabled(true);
-                    address .setEnabled(true);
                 } catch (JSONException e) { e.printStackTrace(); }
             }
         }

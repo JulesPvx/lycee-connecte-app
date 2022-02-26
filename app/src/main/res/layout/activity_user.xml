@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/user_material_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/placeholder_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/user_top_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/placeholder_name"
+            app:titleCentered="true"
+            app:navigationIcon="@drawable/ic_arrow_back"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/user_profile_picture_img"
+        style="@style/AppTheme.ShapeableImageView.Rounded.Border"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_material_toolbar" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/user_login_tv"
+        style="@style/TextAppearance.Material3.LabelMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder_login"
+        app:layout_constraintEnd_toEndOf="@+id/user_profile_picture_img"
+        app:layout_constraintStart_toStartOf="@+id/user_profile_picture_img"
+        app:layout_constraintTop_toBottomOf="@+id/user_type_tv" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/user_type_tv"
+        style="@style/TextAppearance.Material3.TitleMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder_type"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/user_profile_picture_img"
+        app:layout_constraintStart_toStartOf="@+id/user_profile_picture_img"
+        app:layout_constraintTop_toBottomOf="@+id/user_profile_picture_img" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
