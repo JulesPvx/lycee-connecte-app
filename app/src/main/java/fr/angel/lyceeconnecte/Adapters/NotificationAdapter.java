@@ -1,6 +1,7 @@
 package fr.angel.lyceeconnecte.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.text.Html;
 import android.text.Spannable;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 
 import fr.angel.lyceeconnecte.Models.Notification;
 import fr.angel.lyceeconnecte.R;
+import fr.angel.lyceeconnecte.UserActivity;
 import fr.angel.lyceeconnecte.Utility.ProfilePicture;
 import fr.angel.lyceeconnecte.Utility.TimeAgo;
 
@@ -25,10 +27,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     private final ArrayList<Notification> notificationList;
     private final Context context;
+    private final Integer status;
 
-    public NotificationAdapter(ArrayList<Notification> notificationList, Context context) {
+    public NotificationAdapter(ArrayList<Notification> notificationList, Context context, Integer status) {
         this.notificationList = notificationList;
         this.context = context;
+        this.status = status;
     }
 
     @NonNull
@@ -62,6 +66,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 spannable = (Spannable) Html.fromHtml(notification.getMessage());
             }
             holder.contentTV.setText(spannable);
+
+            holder.iconImg.setOnClickListener(v -> {
+                Intent i = new Intent(context, UserActivity.class);
+                i.putExtra("userId", notification.getSender());
+                i.putExtra("status", status);
+                context.startActivity(i);
+            });
         }
     }
 
