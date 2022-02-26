@@ -15,4 +15,19 @@
     <string name="settings">Paramètres</string>
     <string name="connection">Connection</string>
     <string name="no_login_connect">Lancer sans se connecter</string>
+    <string name="placeholder_type">Type</string>
+    <string name="placeholder_login">Login</string>
+    <string name="messaging">Messagerie</string>
+    <string name="messages">Messages</string>
+    <string name="sent">Envoyés</string>
+    <string name="drafts">Brouillons</string>
+    <string name="bin">Corbeille</string>
+    <string name="placeholder_date">Date</string>
+    <string name="empty_subject">(Aucun object)</string>
+    <string name="placeholder_subject">Subject</string>
+    <string name="archive">Archiver</string>
+    <string name="delete">Delete</string>
+    <string name="mark_as_read">Marquer comme lu</string>
+    <string name="content">Content</string>
+    <string name="placeholder_to">à …</string>
 </resources>
