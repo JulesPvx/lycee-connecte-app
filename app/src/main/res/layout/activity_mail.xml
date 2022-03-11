@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:elevation="0dp"
                 app:layout_collapseMode="pin"
-                app:menu="@menu/mail_actions_menu"
+                app:menu="@menu/mail_actions_menu_default"
                 app:navigationIcon="@drawable/ic_arrow_back"
                 app:title="@string/placeholder_subject" />
 
