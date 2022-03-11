@@ -85,9 +85,11 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 /app/release/output-metadata.json
+/app/google-services.json
+
+# Hidden Features
 /app/src/main/java/fr/angel/lyceeconnecte/HiddenFeatures/
 /app/src/main/res/layout/activity_hidden_features.xml
 /app/src/main/res/layout/fragment_mom_finder.xml
-/app/src/main/res/menu/admin_panel_menu.xml
-/app/google-services.json
 /app/src/main/res/navigation/hidden_features_nav.xml
+/app/src/main/res/menu/hidden_features_menu.xml
