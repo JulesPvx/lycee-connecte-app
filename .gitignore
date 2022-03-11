@@ -90,3 +90,4 @@ lint/tmp/
 /app/src/main/res/layout/fragment_mom_finder.xml
 /app/src/main/res/menu/admin_panel_menu.xml
 /app/google-services.json
+/app/src/main/res/navigation/hidden_features_nav.xml
