@@ -56,6 +56,34 @@ public class JsonUtility {
         return jsonArray;
     }
 
+    public static JSONObject postJsonObject(String strUrl, String oneSessionId, String payload) throws IOException {
+        URL url = new URL(strUrl);
+        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+        httpConn.setRequestMethod("POST");
+
+        httpConn.setRequestProperty("cookie", "oneSessionId=" + oneSessionId + ";");
+
+        httpConn.setDoOutput(true);
+        OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
+        writer.write(payload);
+        writer.flush();
+        writer.close();
+        httpConn.getOutputStream().close();
+
+        // DO NOT DELETE: IT'S IMPORTANT FOR THE REQUEST
+        InputStream responseStream = httpConn.getResponseCode() / 100 == 2
+                ? httpConn.getInputStream()
+                : httpConn.getErrorStream();
+        Scanner s = new Scanner(responseStream).useDelimiter("\\A");
+        String response = s.hasNext() ? s.next() : "";
+
+        JSONObject jsonObject = ParseStringToJson.parseStringToJsonObject(response);
+
+        responseStream.close();
+
+        return jsonObject;
+    }
+
     public static void putJsonObject(String strUrl, String oneSessionId, String payload) throws IOException, JSONException {
         URL url = new URL(strUrl);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
