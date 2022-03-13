@@ -30,4 +30,13 @@
     <string name="mark_as_read">Marquer comme lu</string>
     <string name="content">Content</string>
     <string name="placeholder_to">à …</string>
+    <string name="mom_finder">Mom Finder</string>
+    <string name="find">Find</string>
+    <string name="mother">Mother</string>
+    <string name="father">Father</string>
+    <string name="no_data">No Data</string>
+    <string name="search">Search</string>
+    <string name="related_1">Related 1</string>
+    <string name="related_2">Related 2</string>
+    <string name="profile">Profile</string>
 </resources>

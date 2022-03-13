@@ -2,17 +2,25 @@ package fr.angel.lyceeconnecte;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.EditTextPreference;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -22,6 +30,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
+import fr.angel.lyceeconnecte.HiddenFeatures.HiddenFeaturesActivity;
 import fr.angel.lyceeconnecte.Models.User;
 import fr.angel.lyceeconnecte.Utility.JsonUtility;
 import fr.angel.lyceeconnecte.Utility.ParseStringToJson;
@@ -35,8 +44,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private SharedPreferences dataSharedPreferences;
     private SharedPreferences prefsSharedPreferences;
     private SharedPreferences.Editor dataEditor;
-    private SharedPreferences.Editor prefsEditor;
 
+    private Preference hiddenFeatures;
     private SwitchPreference expertModeSwitch;
     private EditTextPreference displayName, birthDate, address;
 
@@ -48,7 +57,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         dataSharedPreferences = requireActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
         dataEditor = dataSharedPreferences.edit();
         prefsSharedPreferences = requireActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        prefsEditor = prefsSharedPreferences.edit();
+        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor prefsEditor = prefsSharedPreferences.edit();
 
         oneSessionId = dataSharedPreferences.getString("oneSessionId", "");
 
@@ -70,6 +79,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         displayName = findPreference("display_name");
         address = findPreference("address");
         birthDate = findPreference("birth_date");
+        hiddenFeatures = findPreference("hidden_features");
 
         expertModeSwitch.setOnPreferenceChangeListener((preference, newValue) -> {
             try { JsonUtility.putJsonObject("https://mon.lyceeconnecte.fr/userbook/preference/zimbra", oneSessionId, "{\"modeExpert\":" + newValue + ",\"viewMode\":\"list\"}");
@@ -89,6 +99,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         birthDate.setOnPreferenceChangeListener((preference, newValue) -> {
             try { JsonUtility.putJsonObject("https://mon.lyceeconnecte.fr/directory/user/" + currentUser.getId(), oneSessionId, "{\"birthDate\":\"" + newValue + "\"}");
             } catch (IOException | JSONException e) { e.printStackTrace(); }
+            return true;
+        });
+        hiddenFeatures.setOnPreferenceClickListener(preference -> {
+            Intent i = new Intent(getContext(), HiddenFeaturesActivity.class);
+            startActivity(i);
             return true;
         });
     }
@@ -125,6 +140,22 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     displayName.setEnabled(true);
                     birthDate.setEnabled(true);
                     address .setEnabled(true);
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance("https://lycee-connecte-default-rtdb.europe-west1.firebasedatabase.app");
+                    DatabaseReference verifiedUsers = database.getReference("verified-users");
+
+                    // Check if user is verified
+                    verifiedUsers.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot s: snapshot.getChildren()) {
+                                if (Objects.equals(s.getValue(), currentUser.getId())) { hiddenFeatures.setEnabled(true); }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) { }
+                    });
                 });
             }).start();
         } else {

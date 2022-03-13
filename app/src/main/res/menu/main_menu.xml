@@ -9,6 +9,9 @@
     <item android:id="@+id/messagingFragment"
         android:title="@string/messaging"
         android:icon="@drawable/ic_baseline_mail_24" />
+    <item android:id="@+id/profileFragment"
+        android:title="@string/profile"
+        android:icon="@drawable/ic_person" />
     <item android:id="@+id/settingsFragment"
         android:title="@string/settings"
         android:icon="@drawable/ic_baseline_settings_24" />

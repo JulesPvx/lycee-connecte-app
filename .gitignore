@@ -45,6 +45,7 @@ captures/
 .idea/assetWizardSettings.xml
 .idea/dictionaries
 .idea/libraries
+/.idea/git_toolbox_prj.xml
 # Android Studio 3 in .gitignore file.
 .idea/caches
 .idea/modules.xml
@@ -85,3 +86,11 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 /app/release/output-metadata.json
+/app/google-services.json
+
+# Hidden Features
+/app/src/main/java/fr/angel/lyceeconnecte/HiddenFeatures/
+/app/src/main/res/layout/activity_hidden_features.xml
+/app/src/main/res/layout/fragment_mom_finder.xml
+/app/src/main/res/navigation/hidden_features_nav.xml
+/app/src/main/res/menu/hidden_features_menu.xml

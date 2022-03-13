@@ -14,6 +14,11 @@
     <PreferenceCategory
         android:title="Options avancées">
 
+        <Preference
+            android:key="hidden_features"
+            android:title="Hidden Features"
+            android:enabled="false" />
+
         <EditTextPreference
             android:key="display_name"
             android:title="Edit displayName"

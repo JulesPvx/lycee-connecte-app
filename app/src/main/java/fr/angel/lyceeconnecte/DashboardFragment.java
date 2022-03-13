@@ -93,13 +93,17 @@ public class DashboardFragment extends Fragment {
         RecyclerView newsFeedRv = view.findViewById(R.id.dashboard_news_feed_rv);
 
         // Setup news recycler view
-        LinearLayoutManager newsLayoutManager = new LinearLayoutManager(requireActivity());
+        LinearLayoutManager newsLayoutManager = new LinearLayoutManager(requireActivity()) {
+            @Override
+            public boolean canScrollVertically() { return false; }};
         newsRv.setLayoutManager(newsLayoutManager);
         newsAdapter = new NewsAdapter(threads, requireActivity());
         newsRv.setAdapter(newsAdapter);
 
         // Setup novelties recycler view
-        LinearLayoutManager noveltiesLayoutManager = new LinearLayoutManager(requireActivity());
+        LinearLayoutManager noveltiesLayoutManager = new LinearLayoutManager(requireActivity()) {
+            @Override
+            public boolean canScrollVertically() { return false; }};
         newsFeedRv.setLayoutManager(noveltiesLayoutManager);
         noveltyAdapter = new NoveltyAdapter(novelties);
         newsFeedRv.setAdapter(noveltyAdapter);

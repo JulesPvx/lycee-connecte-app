@@ -1,6 +1,13 @@
 package fr.angel.lyceeconnecte.Models;
 
+import com.android.volley.RequestQueue;
+
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import fr.angel.lyceeconnecte.Utility.JsonUtility;
 
 public class Mail {
 
@@ -9,6 +16,8 @@ public class Mail {
     private boolean hasAttachment, response, unread;
     private ArrayList<String> cc, to;
     private ArrayList<ArrayList<String>> displayNames;
+
+    private RequestQueue requestQueue;
 
     public Mail(String from, String id, String state, String subject, String systemFolder, String body, long date, boolean hasAttachment, boolean response, boolean unread, ArrayList<String> cc, ArrayList<String> to, ArrayList<ArrayList<String>> displayNames) {
         this.from = from;
@@ -130,5 +139,7 @@ public class Mail {
         this.displayNames = displayNames;
     }
 
-    public Mail() {}
+    public void setWebUnread(boolean unread, String oneSessionId) throws JSONException, IOException {
+        JsonUtility.putJsonObject("https://mon.lyceeconnecte.fr/zimbra/toggleUnread?id=562&unread=" + unread, oneSessionId, null);
+    }
 }

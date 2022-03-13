@@ -1,22 +1,24 @@
 package fr.angel.lyceeconnecte;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -36,7 +38,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.Objects;
 
 import fr.angel.lyceeconnecte.Adapters.MailAdapter;
 import fr.angel.lyceeconnecte.Models.Mail;
@@ -44,17 +46,13 @@ import fr.angel.lyceeconnecte.Models.Mail;
 public class MessagingFragment extends Fragment {
 
     private String oneSessionId;
-    private Integer status, page = 0;
-    private boolean makeRequest = true;
+    private Integer status;
 
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
     private RequestQueue requestQueue;
 
-    private NavigationRailView navigationRailView;
-    private RecyclerView recyclerView;
-
-    private ArrayList<Mail> mails = new ArrayList<>();
+    private final ArrayList<Mail> mails = new ArrayList<>();
+    private final HashMap<String, ArrayList<Mail>> mailsMap = new HashMap<>();
+    private final HashMap<String, Integer> pages = new HashMap<>();
     private MailAdapter mailAdapter;
 
     @Override
@@ -62,8 +60,7 @@ public class MessagingFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         // Setup SharedPreferences
-        sharedPreferences = requireActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
 
         oneSessionId = sharedPreferences.getString("oneSessionId", "");
 
@@ -85,36 +82,36 @@ public class MessagingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Bind views
-        navigationRailView = view.findViewById(R.id.messaging_navigation_rail);
-        recyclerView = view.findViewById(R.id.messaging_rv);
+        NavigationRailView navigationRailView = view.findViewById(R.id.messaging_navigation_rail);
+        RecyclerView recyclerView = view.findViewById(R.id.messaging_rv);
 
-        // Setup novelties recycler view
+        // Setup mails recycler view
         LinearLayoutManager mailsLayoutManager = new LinearLayoutManager(requireActivity());
         recyclerView.setLayoutManager(mailsLayoutManager);
         mailAdapter = new MailAdapter(mails, requireContext(), status);
         recyclerView.setAdapter(mailAdapter);
 
+        // Setup rail view
         navigationRailView.setOnItemSelectedListener(item -> {
 
-            mails.clear();
-            mailAdapter.notifyDataSetChanged();
-            page = 0;
+            String category = "Inbox";
 
             switch (item.getItemId()) {
                 case R.id.messages:
-                    fetchMessages("Inbox");
+                    category = "Inbox";
                     break;
                 case R.id.sent:
-                    fetchMessages("Sent");
+                    category = "Sent";
                     break;
                 case R.id.drafts:
-                    fetchMessages("Drafts");
+                    category = "Drafts";
                     break;
                 case R.id.bin:
-                    fetchMessages("Trash");
+                    category = "Trash";
                     break;
             }
-            Log.e("TAG", "onViewCreated: " + item);
+
+            getData(category);
 
             return true;
         });
@@ -123,59 +120,72 @@ public class MessagingFragment extends Fragment {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-
+        // Get data
         if (status == MainActivity.STATUS_OK) {
 
             // Instantiate the cache
             Cache cache = new DiskBasedCache(requireContext().getCacheDir(), 1024 * 1024); // 1MB cap
-
             // Set up the network to use HttpURLConnection as the HTTP client.
             Network network = new BasicNetwork(new HurlStack());
-
             // Instantiate the RequestQueue with the cache and network.
             requestQueue = new RequestQueue(cache, network);
-
             // Start the queue
             requestQueue.start();
 
-            fetchMessages("Inbox");
+            getData("Inbox");
         }
     }
 
-    private void fetchMessages(String folder) {
+    @SuppressLint("NotifyDataSetChanged")
+    private void getData(String folder) {
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, "https://mon.lyceeconnecte.fr/zimbra/list?folder=/" + folder + "&page=" + page + "&unread=false", null, response -> {
+        // Get previous data if existing
+        if (mailsMap.get(folder) != null) {
+            mails.clear();
+            mails.addAll(Objects.requireNonNull(mailsMap.get(folder)));
+            mailAdapter.notifyDataSetChanged();
+        }
 
-                    if (response.length() <= 0) { makeRequest = false; }
-                    try {
-                        parseToMails(response);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }, error -> makeRequest = false) {
-                    @Override
-                    public Map<String, String> getHeaders() {
-                        HashMap<String, String> headers = new HashMap<>();
-                        headers.put("cookie", "oneSessionId=" + oneSessionId + ";");
-                        return headers;
-                    }
-                };
+        // Get latest data
+        pages.put(folder, 0);
+        mailsMap.put(folder, new ArrayList<>());
+        request(folder);
+    }
 
-                requestQueue.add(jsonArrayRequest);
-                if (makeRequest) {
-                    page += 1;
-                    Log.d("TAG", "fetchMessages: " + page);
-                    handler.postDelayed(this, 1000);
-                }
+    private void request(String folder) {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, "https://mon.lyceeconnecte.fr/zimbra/list?folder=/" + folder + "&page=" + pages.get(folder) + "&unread=false", null, response -> {
+
+            if (response.length() <= 0) {
+                endRequest(folder);
+                requestQueue.cancelAll("Inbox");
+            } else {
+                pages.put(folder, Objects.requireNonNull(pages.get(folder)) + 1);
+                try {
+                    parseToMails(response, folder); } catch (JSONException e) { e.printStackTrace(); }
+                request(folder);
             }
-        }, 1000);
+        }, error -> { }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("cookie", "oneSessionId=" + oneSessionId + ";");
+                return headers;
+            }
+        };
+        jsonArrayRequest.setTag(folder);
+
+        requestQueue.add(jsonArrayRequest);
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private boolean parseToMails(JSONArray data) throws JSONException {
+    private void endRequest(String folder) {
+        mails.clear();
+        mails.addAll(Objects.requireNonNull(mailsMap.get(folder)));
+        mailAdapter.notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void parseToMails(JSONArray data, String folder) throws JSONException {
 
         for (int i = 0; i < data.length(); i++) {
             JSONObject mail = data.getJSONObject(i);
@@ -183,14 +193,7 @@ public class MessagingFragment extends Fragment {
             Gson gson = new Gson();
             Mail object = gson.fromJson(mail.toString(), Mail.class);
 
-            mails.add(object);
+            Objects.requireNonNull(mailsMap.get(folder)).add(object);
         }
-
-        mailAdapter.notifyDataSetChanged();
-
-        // TODO: offline mode
-        //editor.putString("mails", data.toString());
-        //editor.commit();
-        return data.length() > 0;
     }
 }

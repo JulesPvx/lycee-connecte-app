@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,8 +29,8 @@ public class MailAdapter extends RecyclerView.Adapter<MailAdapter.MailHolder> {
 
     // List to store all the contact details
     private final ArrayList<Mail> mailList;
-    private Context context;
-    private Integer status;
+    private final Context context;
+    private final Integer status;
 
     // Constructor for the Class
     public MailAdapter(ArrayList<Mail> mailList, Context context, Integer status) {
@@ -97,7 +98,35 @@ public class MailAdapter extends RecyclerView.Adapter<MailAdapter.MailHolder> {
             Intent i = new Intent(context, MailActivity.class);
             i.putExtra("status", status);
             i.putExtra("mailId", mail.getId());
+            int res = R.menu.mail_actions_menu_default;
+            switch (mail.getSystemFolder()) {
+                case "INBOX":
+                    res = R.menu.mail_actions_menu_inbox;
+                    Log.e("TAG", "onBindViewHolder: " + mail.getSystemFolder() + ":INBOX");
+                    break;
+                case "SENT":
+                    res = R.menu.mail_actions_menu_sent;
+                    Log.e("TAG", "onBindViewHolder: " + mail.getSystemFolder() + ":SENT");
+                    break;
+                case "DRAFTS":
+                    res = R.menu.mail_actions_menu_drafts;
+                    Log.e("TAG", "onBindViewHolder: " + mail.getSystemFolder() + ":DRAFTS");
+                    break;
+                case "TRASH":
+                    res = R.menu.mail_actions_menu_trash;
+                    Log.e("TAG", "onBindViewHolder: " + mail.getSystemFolder() + ":TRASH");
+                    break;
+            }
+            Log.e("TAG", "onBindViewHolder: " + res);
+            i.putExtra("menu", res);
             context.startActivity(i);
+
+            // Set as read
+            holder.titleTv.setAlpha(0.5f);
+            holder.dateTv.setAlpha(0.5f);
+            holder.titleTv.setTypeface(null, Typeface.NORMAL);
+            holder.dateTv.setTypeface(null, Typeface.NORMAL);
+            mail.setUnread(false);
         });
     }
 
