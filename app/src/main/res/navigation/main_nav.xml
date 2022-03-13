@@ -25,4 +25,9 @@
         android:name="fr.angel.lyceeconnecte.MessagingFragment"
         android:label="fragment_messaging"
         tools:layout="@layout/fragment_messaging" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="fr.angel.lyceeconnecte.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
