@@ -5,11 +5,15 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 
@@ -25,10 +29,8 @@ public class MainActivity extends AppCompatActivity {
     public static int STATUS_OK = 0;
     public static int STATUS_NO_INTERNET = 1;
 
-    private Integer status;
     private String oneSessionId;
 
-    private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
     @Override
@@ -36,14 +38,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Container
+        View baseView = findViewById(R.id.nav_host_fragment);
+
         // Bind views
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
         // Get extras
-        status = getIntent().getIntExtra("status", 0);
+        int status = getIntent().getIntExtra("status", 0);
 
         // Setup SharedPreferences
-        sharedPreferences = getSharedPreferences("data", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("data", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         oneSessionId = sharedPreferences.getString("oneSessionId", "");
@@ -79,6 +84,21 @@ public class MainActivity extends AppCompatActivity {
             if (!notificationCount.trim().isEmpty()) {
                 Objects.requireNonNull(ParseStringToJson.parseStringToJsonObject(notificationCount));
             }
+
+            Snackbar snackbar = Snackbar
+                    .make(baseView, "Cannot connect to Lycée Connecté", BaseTransientBottomBar.LENGTH_INDEFINITE)
+                    .setAction("RETRY", v -> {
+                        // Retry to connect
+                        editor.remove("oneSessionId");
+                        editor.apply();
+                        startActivity(new Intent(this, LoginActivity.class));
+                        finish();
+                    })
+                    .setDuration(7500)
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                    .setAnchorView(bottomNavigationView);
+
+            snackbar.show();
         }
     }
 
