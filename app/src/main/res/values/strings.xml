@@ -39,4 +39,12 @@
     <string name="related_1">Related 1</string>
     <string name="related_2">Related 2</string>
     <string name="profile">Profile</string>
+    <string name="edit_profile_picture">Edit Profile Picture</string>
+    <string name="placeholder_password">Password</string>
+    <string name="placeholder_email">E-Mail</string>
+    <string name="placeholder_phone">Phone Number</string>
+    <string name="placeholder_mobile">Mobile</string>
+    <string name="placeholder_birth_date">Birth Date</string>
+    <string name="placeholder_home_institution">Établissement de rattachement</string>
+    <string name="main_infos">Informations principales</string>
 </resources>
