@@ -29,7 +29,7 @@ public class ProfilePicture {
 
                         Glide.with(context)
                                 .asBitmap()
-                                .load("https://mon.lyceeconnecte.fr/userbook/avatar/517cae4f-0c43-4ae4-b83f-6332536bb749")
+                                .load("https://mon.lyceeconnecte.fr/userbook/avatar/")
                                 .into(new CustomTarget<Bitmap>() {
                                     @Override
                                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
