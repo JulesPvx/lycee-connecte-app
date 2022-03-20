@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -130,6 +129,7 @@ public class DashboardFragment extends Fragment {
             try {
                 parseToUser(Objects.requireNonNull(ParseStringToJson.parseStringToJsonObject(user))); } catch (JSONException e) { e.printStackTrace(); }
             displayNameTv.setText(currentUser.getDisplayName());
+            if (currentUser.getStructureNodes() != null)
             schoolNameTv.setText(currentUser.getStructureNodes().get(0).getName());
         }
 
@@ -157,7 +157,7 @@ public class DashboardFragment extends Fragment {
                     schoolNameTv.setText(currentUser.getStructureNodes().get(0).getName());
 
                     // Display user profile picture
-                    ProfilePicture.getUserProfilePicture(oneSessionId, requireActivity(), profilePictureImg);
+                    ProfilePicture.getUserProfilePicture(currentUser.getId(), requireActivity(), profilePictureImg);
                 });
             }).start();
         }
