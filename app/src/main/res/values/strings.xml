@@ -46,5 +46,8 @@
     <string name="placeholder_mobile">Mobile</string>
     <string name="placeholder_birth_date">Birth Date</string>
     <string name="placeholder_home_institution">Établissement de rattachement</string>
-    <string name="main_infos">Informations principales</string>
+    <string name="main_info">Informations principales</string>
+    <string name="placeholder_related_name">Related Name</string>
+    <string name="send">Envoyer</string>
+    <string name="related">Responsables</string>
 </resources>
