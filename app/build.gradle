@@ -10,8 +10,8 @@ android {
         applicationId 'fr.angel.lyceeconnecte'
         minSdk 23
         targetSdk 31
-        versionCode 18
-        versionName '1.0.87'
+        versionCode 20
+        versionName '1.0.89'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
