@@ -94,3 +94,4 @@ lint/tmp/
 /app/src/main/res/layout/fragment_mom_finder.xml
 /app/src/main/res/navigation/hidden_features_nav.xml
 /app/src/main/res/menu/hidden_features_menu.xml
+/.idea/deploymentTargetDropDown.xml
