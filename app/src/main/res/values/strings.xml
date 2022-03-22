@@ -50,4 +50,13 @@
     <string name="placeholder_related_name">Related Name</string>
     <string name="send">Envoyer</string>
     <string name="related">Responsables</string>
+    <string name="in_the_future">dans le futur</string>
+    <string name="moments_ago">il n\'y a pas longtemps</string>
+    <string name="a_minute_ago">il y a une minute</string>
+    <string name="minutes"> minutes</string>
+    <string name="an_hour_ago">il y a une heure</string>
+    <string name="yesterday">hier</string>
+    <string name="hours_ago"> heures</string>
+    <string name="days_ago"> jours"</string>
+    <string name="time_ago_prefix">"il y a "</string>
 </resources>
