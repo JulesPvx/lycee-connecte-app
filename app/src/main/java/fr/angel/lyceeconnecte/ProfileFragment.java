@@ -142,7 +142,7 @@ public class ProfileFragment extends Fragment {
         related2Img = view.findViewById(R.id.related_2_img);
         related1Name = view.findViewById(R.id.related_1_name);
         related2Name = view.findViewById(R.id.related_2_name);
-        displayNameTv = view.findViewById(R.id.profile_displayname);
+        displayNameTv = view.findViewById(R.id.profile_display_name);
         sendFab = view.findViewById(R.id.profile_send_changes_fab);
         profilePicFab = view.findViewById(R.id.profile_modify_profile_pic_fab);
 
