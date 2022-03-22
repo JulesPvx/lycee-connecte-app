@@ -11,6 +11,7 @@ import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import fr.angel.lyceeconnecte.Models.Mail;
+import fr.angel.lyceeconnecte.Models.User;
 import fr.angel.lyceeconnecte.Utility.JsonUtility;
 import fr.angel.lyceeconnecte.Utility.ParseStringToJson;
 import fr.angel.lyceeconnecte.Utility.ProfilePicture;
@@ -37,6 +39,8 @@ public class MailActivity extends AppCompatActivity {
     private MaterialTextView fromTv, toTv, timeAgoTv;
     private WebView bodyWv;
     private ShapeableImageView iconImg;
+    private MaterialToolbar toolbar;
+    private CollapsingToolbarLayout collapsingToolbar;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -62,17 +66,18 @@ public class MailActivity extends AppCompatActivity {
         oneSessionId = sharedPreferences.getString("oneSessionId", "");
 
         // Bind views
-        MaterialToolbar topAppBar = findViewById(R.id.mail_top_app_bar);
+        toolbar = findViewById(R.id.mail_top_app_bar);
         fromTv = findViewById(R.id.mail_from_tv);
         fromTv = findViewById(R.id.mail_from_tv);
         toTv = findViewById(R.id.mail_to_tv);
         bodyWv = findViewById(R.id.mail_body_wv);
         timeAgoTv = findViewById(R.id.mail_time_ago_tv);
         iconImg = findViewById(R.id.mail_icon_img);
+        collapsingToolbar = findViewById(R.id.mail_collapsing_toolbar);
 
         // Setup app bar
-        topAppBar.setNavigationOnClickListener(v -> finish());
-        topAppBar.inflateMenu(menu);
+        toolbar.setNavigationOnClickListener(v -> finish());
+        toolbar.inflateMenu(menu);
 
         // Setup web view
         bodyWv.setWebViewClient(new WebViewClient());
@@ -90,7 +95,7 @@ public class MailActivity extends AppCompatActivity {
                     try {
                         applyData();
                         // Setup app bar
-                        topAppBar.setOnMenuItemClickListener(item -> {
+                        toolbar.setOnMenuItemClickListener(item -> {
                             try {
                                 switch(item.getItemId()) {
                                     case R.id.archive:
@@ -156,9 +161,11 @@ public class MailActivity extends AppCompatActivity {
         // Apply views
         bodyWv.loadDataWithBaseURL(null, mail.getBody(), "text/html", "UTF-8", null);
 
-        timeAgoTv.setText(TimeAgo.getTimeAgo(mail.getDate()));
+        timeAgoTv.setText(TimeAgo.getTimeAgo(mail.getDate(), this));
+        collapsingToolbar.setTitle(mail.getSubject());
 
-        ProfilePicture.getUserProfilePicture(mail.getFrom(), this, iconImg);
+
+        applyUserData(mail.getFrom());
 
         // Apply logic
         data.putExtra("folder", mail.getSystemFolder().substring(0, 1).toUpperCase() + mail.getSystemFolder().substring(1).toLowerCase());
@@ -167,5 +174,16 @@ public class MailActivity extends AppCompatActivity {
             mail.setWebUnread(false, oneSessionId);
             data.putExtra("unread", false);
         }
+    }
+
+    private void applyUserData(String id) throws IOException, JSONException {
+        ProfilePicture.getUserProfilePicture(mail.getFrom(), this, iconImg);
+
+        JSONObject object = JsonUtility.getJsonObject("https://mon.lyceeconnecte.fr/userbook/api/person?id=" + id, oneSessionId);
+
+        Gson gson = new Gson();
+        User user = gson.fromJson(object.getJSONArray("result").getJSONObject(0).toString(), User.class);
+
+        fromTv.setText(user.getDisplayName());
     }
 }
