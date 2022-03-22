@@ -1,18 +1,26 @@
 package fr.angel.lyceeconnecte;
 
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -39,10 +47,13 @@ import net.cachapa.expandablelayout.ExpandableLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import fr.angel.lyceeconnecte.Models.Related;
 import fr.angel.lyceeconnecte.Models.User;
@@ -56,14 +67,37 @@ public class ProfileFragment extends Fragment {
     private Integer status;
 
     private RequestQueue requestQueue;
+    private Bitmap newUserPic = null;
 
+    private MaterialTextView displayNameTv;
     private ShapeableImageView profileImg, related1Img,  related2Img;
     private ExpandableLayout mainInfoEl, relatedEl;
     private MaterialTextView related1Name, related2Name;
-    private TextInputLayout usernameTil, loginTil, passwordTil, emailTil, phoneTil, mobileTil, birthDateTil, homeInstTil;
-    private FloatingActionButton sendFab;
+    private TextInputLayout usernameTil, loginTil, emailTil, phoneTil, mobileTil, birthDateTil, homeInstTil;
+    private FloatingActionButton sendFab, profilePicFab;
 
     private SharedPreferences.Editor editor;
+
+    private final ActivityResultLauncher<Intent> pickImageResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data0 = result.getData();
+                    Uri selectedImage = Objects.requireNonNull(data0).getData();
+                    InputStream imageStream = null;
+                    try {
+                        imageStream = requireActivity().getContentResolver().openInputStream(selectedImage);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    Bitmap bm = BitmapFactory.decodeStream(imageStream);
+
+                    // Display image
+                    profileImg.setImageBitmap(bm);
+
+                    newUserPic = bm;
+                }
+            });
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,7 +128,6 @@ public class ProfileFragment extends Fragment {
         // Bind views
         usernameTil = view.findViewById(R.id.profile_username);
         loginTil = view.findViewById(R.id.profile_login);
-        passwordTil = view.findViewById(R.id.profile_password);
         emailTil = view.findViewById(R.id.profile_email);
         phoneTil = view.findViewById(R.id.profile_phone);
         mobileTil = view.findViewById(R.id.profile_mobile);
@@ -109,7 +142,9 @@ public class ProfileFragment extends Fragment {
         related2Img = view.findViewById(R.id.related_2_img);
         related1Name = view.findViewById(R.id.related_1_name);
         related2Name = view.findViewById(R.id.related_2_name);
+        displayNameTv = view.findViewById(R.id.profile_displayname);
         sendFab = view.findViewById(R.id.profile_send_changes_fab);
+        profilePicFab = view.findViewById(R.id.profile_modify_profile_pic_fab);
 
         mainInfoSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> mainInfoEl.setExpanded(isChecked) );
         relatedSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> relatedEl.setExpanded(isChecked) );
@@ -202,15 +237,24 @@ public class ProfileFragment extends Fragment {
 
         Objects.requireNonNull(usernameTil.getEditText()).setText(user.getDisplayName());
         Objects.requireNonNull(loginTil.getEditText()).setText(user.getLogin());
-        //passwordTil.getEditText().setText(user.getPass());
         Objects.requireNonNull(emailTil.getEditText()).setText(user.getEmail());
         Objects.requireNonNull(phoneTil.getEditText()).setText(user.getHomePhone());
         Objects.requireNonNull(mobileTil.getEditText()).setText(user.getMobile());
         Objects.requireNonNull(birthDateTil.getEditText()).setText(user.getBirthDate());
-        //homeInstTil.getEditText().setText(user.getHomeInst());
+        Objects.requireNonNull(homeInstTil.getEditText()).setText(user.getStructureNodes().get(0).getName());
+        Objects.requireNonNull(displayNameTv).setText(user.getDisplayName());
+
+        // Handle pick image from gallery fab
+        profilePicFab.setOnClickListener(v -> {
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+            photoPickerIntent.setType("image/*");
+
+            pickImageResultLauncher.launch(photoPickerIntent);
+        });
 
         // Handle fab send changes
         sendFab.setOnClickListener(v -> {
+            // Push simple information
             try {
                 String response = JsonUtility.putJsonObject("https://mon.lyceeconnecte.fr/directory/user/" + user.getId(), oneSessionId, "{\"displayName\":\"" + usernameTil.getEditText().getText() + "\"," /*TODO: Implement address edit text*/ + "\"email\":\"" + emailTil.getEditText().getText() + "\",\"homePhone\":\"" + phoneTil.getEditText().getText() + "\",\"mobile\":\"" + mobileTil.getEditText().getText() + "\",\"birthDate\":\"" + birthDateTil.getEditText().getText() + "\"}");
                 JSONObject object = ParseStringToJson.parseStringToJsonObject(response);
@@ -231,6 +275,11 @@ public class ProfileFragment extends Fragment {
                     usernameTil.setErrorEnabled(false);
                 }
             } catch (IOException | JSONException e) { e.printStackTrace(); }
+
+            /* TODO: Push user new profile picture
+            if (newUserPic != null) {
+
+            }*/
         });
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://lycee-connecte-default-rtdb.europe-west1.firebasedatabase.app");
@@ -255,6 +304,19 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
+        });
+
+        // Show user id when login til clicked 7 times
+        AtomicInteger clickCounter = new AtomicInteger(7);
+        displayNameTv.setOnClickListener(v -> {
+            if (clickCounter.get() == 0) {
+                displayNameTv.setText(user.getId());
+                ClipboardManager clipboard = (ClipboardManager) requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("user id", user.getId());
+                clipboard.setPrimaryClip(clip);
+            } else {
+                clickCounter.addAndGet(-1);
+            }
         });
     }
 
