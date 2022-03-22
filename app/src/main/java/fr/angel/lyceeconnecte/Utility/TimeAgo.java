@@ -1,7 +1,12 @@
 package fr.angel.lyceeconnecte.Utility;
 
+import android.content.Context;
+import android.content.res.Resources;
+
 import java.util.Calendar;
 import java.util.Date;
+
+import fr.angel.lyceeconnecte.R;
 
 public class TimeAgo {
 
@@ -15,7 +20,7 @@ public class TimeAgo {
         return calendar.getTime();
     }
 
-    public static String getTimeAgo(Date date) {
+    public static String getTimeAgo(Date date, Context context) {
         long time = date.getTime();
         if (time < 1000000000000L) {
             time *= 1000;
@@ -23,52 +28,52 @@ public class TimeAgo {
 
         long now = currentDate().getTime();
         if (time > now || time <= 0) {
-            return "in the future";
+            return context.getString(R.string.in_the_future);
         }
 
         final long diff = now - time;
         if (diff < MINUTE_MILLIS) {
-            return "moments ago";
+            return context.getString(R.string.moments_ago);
         } else if (diff < 2 * MINUTE_MILLIS) {
-            return "a minute ago";
+            return context.getString(R.string.a_minute_ago);
         } else if (diff < 60 * MINUTE_MILLIS) {
-            return diff / MINUTE_MILLIS + " minutes ago";
+            return context.getString(R.string.time_ago_prefix) + diff / MINUTE_MILLIS + context.getString(R.string.minutes);
         } else if (diff < 2 * HOUR_MILLIS) {
-            return "an hour ago";
+            return context.getString(R.string.an_hour_ago);
         } else if (diff < 24 * HOUR_MILLIS) {
-            return diff / HOUR_MILLIS + " hours ago";
+            return context.getString(R.string.time_ago_prefix) + diff / HOUR_MILLIS + context.getString(R.string.hours_ago);
         } else if (diff < 48 * HOUR_MILLIS) {
-            return "yesterday";
+            return context.getString(R.string.yesterday);
         } else {
-            return diff / DAY_MILLIS + " days ago";
+            return context.getString(R.string.time_ago_prefix) + diff / DAY_MILLIS + context.getString(R.string.days_ago);
         }
     }
 
-    public static String getTimeAgo(long time) {
+    public static String getTimeAgo(long time, Context context) {
         if (time < 1000000000000L) {
             time *= 1000;
         }
 
         long now = currentDate().getTime();
         if (time > now || time <= 0) {
-            return "in the future";
+            return context.getString(R.string.in_the_future);
         }
 
         final long diff = now - time;
         if (diff < MINUTE_MILLIS) {
-            return "moments ago";
+            return context.getString(R.string.moments_ago);
         } else if (diff < 2 * MINUTE_MILLIS) {
-            return "a minute ago";
+            return context.getString(R.string.a_minute_ago);
         } else if (diff < 60 * MINUTE_MILLIS) {
-            return diff / MINUTE_MILLIS + " minutes ago";
+            return context.getString(R.string.time_ago_prefix) + diff / MINUTE_MILLIS + context.getString(R.string.minutes);
         } else if (diff < 2 * HOUR_MILLIS) {
-            return "an hour ago";
+            return context.getString(R.string.an_hour_ago);
         } else if (diff < 24 * HOUR_MILLIS) {
-            return diff / HOUR_MILLIS + " hours ago";
+            return context.getString(R.string.time_ago_prefix) + diff / HOUR_MILLIS + context.getString(R.string.hours_ago);
         } else if (diff < 48 * HOUR_MILLIS) {
-            return "yesterday";
+            return context.getString(R.string.yesterday);
         } else {
-            return diff / DAY_MILLIS + " days ago";
+            return context.getString(R.string.time_ago_prefix) + diff / DAY_MILLIS + context.getString(R.string.days_ago);
         }
     }
 
