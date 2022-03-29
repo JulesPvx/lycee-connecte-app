@@ -84,12 +84,14 @@ public class JsonUtility {
         return jsonObject;
     }
 
-    public static void putJsonObject(String strUrl, String oneSessionId, String payload) throws IOException, JSONException {
+    public static String putJsonObject(String strUrl, String oneSessionId, String payload) throws IOException, JSONException {
         URL url = new URL(strUrl);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
         httpConn.setRequestMethod("PUT");
 
         httpConn.setRequestProperty("cookie", "oneSessionId=" + oneSessionId + ";");
+
+        Log.e("TAG", "putJsonObject: " + payload + "  :  " + strUrl);
 
         httpConn.setDoOutput(true);
         OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
@@ -102,7 +104,11 @@ public class JsonUtility {
         InputStream responseStream = httpConn.getResponseCode() / 100 == 2
                 ? httpConn.getInputStream()
                 : httpConn.getErrorStream();
+        Scanner s = new Scanner(responseStream).useDelimiter("\\A");
+        String response = s.hasNext() ? s.next() : "";
 
         responseStream.close();
+
+        return response;
     }
 }

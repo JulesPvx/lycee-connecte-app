@@ -39,4 +39,24 @@
     <string name="related_1">Related 1</string>
     <string name="related_2">Related 2</string>
     <string name="profile">Profile</string>
+    <string name="edit_profile_picture">Edit Profile Picture</string>
+    <string name="placeholder_password">Password</string>
+    <string name="placeholder_email">E-Mail</string>
+    <string name="placeholder_phone">Phone Number</string>
+    <string name="placeholder_mobile">Mobile</string>
+    <string name="placeholder_birth_date">Birth Date</string>
+    <string name="placeholder_home_institution">Établissement de rattachement</string>
+    <string name="main_info">Informations principales</string>
+    <string name="placeholder_related_name">Related Name</string>
+    <string name="send">Envoyer</string>
+    <string name="related">Responsables</string>
+    <string name="in_the_future">dans le futur</string>
+    <string name="moments_ago">il n\'y a pas longtemps</string>
+    <string name="a_minute_ago">il y a une minute</string>
+    <string name="minutes"> minutes</string>
+    <string name="an_hour_ago">il y a une heure</string>
+    <string name="yesterday">hier</string>
+    <string name="hours_ago"> heures</string>
+    <string name="days_ago"> jours"</string>
+    <string name="time_ago_prefix">"il y a "</string>
 </resources>

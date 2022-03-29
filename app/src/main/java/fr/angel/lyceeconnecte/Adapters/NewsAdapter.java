@@ -69,7 +69,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
         try { calendar.setTime(Objects.requireNonNull(inputFormat.parse(thread.getModified()))); } catch (ParseException e) { e.printStackTrace(); }
         Date date = calendar.getTime();
 
-        String finalTime = TimeAgo.getTimeAgo(date);
+        String finalTime = TimeAgo.getTimeAgo(date, context);
 
         holder.timeTv.setText(finalTime);
 

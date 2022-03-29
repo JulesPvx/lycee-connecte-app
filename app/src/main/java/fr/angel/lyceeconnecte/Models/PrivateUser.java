@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class PrivateUser {
 
     private String address, birthdate, displayName, email, health, id, login, mobile, mood, motto, photo, relatedId, relatedName, relatedType, tel, userId;
-    private ArrayList<String> type, visibleInfos;
+    private ArrayList<String> type, visibleInfo;
     private ArrayList<School> schools;
 
-    public PrivateUser(String address, String birthdate, String displayName, String email, String health, String id, String login, String mobile, String mood, String motto, String photo, String relatedId, String relatedName, String relatedType, String tel, String userId, ArrayList<String> type, ArrayList<String> visibleInfos, ArrayList<School> schools) {
+    public PrivateUser(String address, String birthdate, String displayName, String email, String health, String id, String login, String mobile, String mood, String motto, String photo, String relatedId, String relatedName, String relatedType, String tel, String userId, ArrayList<String> type, ArrayList<String> visibleInfo, ArrayList<School> schools) {
         this.address = address;
         this.birthdate = birthdate;
         this.displayName = displayName;
@@ -26,7 +26,7 @@ public class PrivateUser {
         this.tel = tel;
         this.userId = userId;
         this.type = type;
-        this.visibleInfos = visibleInfos;
+        this.visibleInfo = visibleInfo;
         this.schools = schools;
     }
 
@@ -166,12 +166,12 @@ public class PrivateUser {
         this.type = type;
     }
 
-    public ArrayList<String> getVisibleInfos() {
-        return visibleInfos;
+    public ArrayList<String> getVisibleInfo() {
+        return visibleInfo;
     }
 
-    public void setVisibleInfos(ArrayList<String> visibleInfos) {
-        this.visibleInfos = visibleInfos;
+    public void setVisibleInfo(ArrayList<String> visibleInfo) {
+        this.visibleInfo = visibleInfo;
     }
 
     public ArrayList<School> getSchools() {

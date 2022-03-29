@@ -54,7 +54,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.typeTv.setText(notification.getType());
 
             //String finalTime = TimeAgo.getTimeAgo(notification.getDate());
-            holder.timeTv.setText(TimeAgo.getTimeAgo(notification.getPublicationDate()));
+            holder.timeTv.setText(TimeAgo.getTimeAgo(notification.getPublicationDate(), context));
 
             ProfilePicture.getUserProfilePicture(notification.getSender(), context, holder.iconImg);
 
