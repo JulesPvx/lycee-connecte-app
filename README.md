@@ -1,3 +1,5 @@
+##### Abandoned project - since 2020
+
 # <img src="https://user-images.githubusercontent.com/87655026/155192562-e7a89e10-99f6-483e-a3be-793c6b15ad86.png" width="40"> Lycée Connecté
 Lycée Connecté provide an unofficial android app for the Lycée Connecté web service.
 Available on Android 6.0 (API 23) and above.
